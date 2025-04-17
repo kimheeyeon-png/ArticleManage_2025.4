@@ -1,11 +1,16 @@
 package koreaIT;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        //Test.test();
+
         List<Article> articleList = new ArrayList<>();
 
         System.out.println("== 프로그램 시작 ==");
@@ -37,18 +42,23 @@ public class Main {
                 }
                 // parsing end
 
+                boolean flag = true;
                 if (!articleList.isEmpty()){
                     for (Article article : articleList){
-                        if(article.getId() == detailId){
-                            System.out.println("너가 찾는 게시물 있어");
+                        if(article.getId() == detailId) {
+                            flag = false;
+                            System.out.println("번호 : " + article.getId());
+                            System.out.println("날짜 : " + article.getRegDate());
+                            System.out.println("제목 : " + article.getTitle());
+                            System.out.println("내용 : " + article.getBody());
                         }
-                        else {
-                            System.out.printf("%d번 게시글은 없습니다\n", detailId);
-                        }
+
                     }
-                }
-                else{
-                    System.out.println("게시글이 없습니다.");
+                    if (flag == true){
+                            System.out.printf("%d번 게시글은 없습니다.\n", detailId);
+                    }
+                }else {
+                    System.out.println("게시글이 아예 없습니다.");
                 }
 
             } else if (cmd.equals("article list")) {
@@ -62,6 +72,12 @@ public class Main {
                 System.out.print("내용 : ");
                 String body = sc.nextLine();
 
+                // 현재 일시 불러와서 형식 변경
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                String formatedNow = now.format(formatter);
+                String regDate = formatedNow;
+
                 lastId++;
                 int id = lastId;
 
@@ -69,6 +85,7 @@ public class Main {
                 addArticle.setId(id);
                 addArticle.setTitle(title);
                 addArticle.setBody(body);
+                addArticle.setRegDate(regDate);
 
                 articleList.add(addArticle);
 
