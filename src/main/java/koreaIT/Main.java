@@ -6,15 +6,16 @@ import java.util.Scanner;
 
 public class Main {
     static List<Article> articleList = new ArrayList<>();
+    static List<Member> memberList = new ArrayList<>();
 
     public static void main(String[] args) {
-
 
         System.out.println("== 프로그램 시작 ==");
 
         makeTestData();
 
-        int lastId = 3;
+        int lastArticleId = 3;
+        int lastMemebrId = 0;
 
         Scanner sc = new Scanner(System.in);
 
@@ -22,7 +23,25 @@ public class Main {
             System.out.print("명령어) ");
             String cmd = sc.nextLine().trim();
 
-            if (cmd.startsWith("article modify")) {
+            if (cmd.startsWith("member join")) {
+                System.out.print("로그인 아이디 : ");
+                String loginId = sc.nextLine();
+                System.out.print("로그인 비밀번호 : ");
+                String loginPw = sc.nextLine();
+                System.out.print("이름 : ");
+                String name = sc.nextLine();
+
+                String regDate = Util.getNowDate();
+
+                lastMemebrId++;
+                Member addMember = new Member(lastMemebrId, regDate, "", loginId, loginPw, name);
+
+                memberList.add(addMember);
+
+                System.out.printf("%d번 회원이 등록되었습니다. %s님 환영합니다.\n", lastMemebrId, name);
+
+
+            } else if (cmd.startsWith("article modify")) {
                 // parsing start
                 String[] cmdBits = cmd.split(" ");
 
@@ -126,8 +145,8 @@ public class Main {
                 String body = sc.nextLine();
                 String regDate = Util.getNowDate();
 
-                lastId++;
-                int id = lastId;
+                lastArticleId++;
+                int id = lastArticleId;
 
                 Article addArticle = new Article(id, title, body, regDate, "");
 
@@ -161,5 +180,4 @@ public class Main {
         articleList.add(new Article(2, "제목2", "내용2", "2025-04-12 12:12:12", Util.getNowDate()));
         articleList.add(new Article(3, "제목3", "내용3", "2025-05-12 12:12:12", Util.getNowDate()));
     }
-
 }
