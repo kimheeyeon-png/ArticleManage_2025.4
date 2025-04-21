@@ -21,7 +21,6 @@ public class Main {
             System.out.print("명령어) ");
             String cmd = sc.nextLine().trim();
 
-
             Rq rq = new Rq(cmd); // 명령어 파싱
 
             if (rq.getFunctionCode().equals("article")) {

@@ -6,10 +6,19 @@ public class Rq {
     private String actionCode;
 
     Rq(String cmd){
+
+        boolean flag = false;
         // parsing start
         String[] cmdBits = cmd.split(" ");
+
         functionCode = cmdBits[0];
-        actionCode = cmdBits[1];
+
+        try{
+            actionCode = cmdBits[1];
+        }catch (Exception e){
+
+        }
+
 
         if (cmdBits.length > 3) {
             System.out.println("명령어를 제대로 입력해주세요.");
@@ -21,6 +30,8 @@ public class Rq {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("정수를 추가해서 입력해주세요.");
         }
+
+
         // parsing end
 
     }
