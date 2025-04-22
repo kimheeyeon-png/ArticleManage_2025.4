@@ -54,6 +54,14 @@ public class Member {
         return loginPw;
     }
 
+    public String getLoginPwCheck() {
+        return loginPwCheck;
+    }
+
+    public void setLoginPwCheck(String loginPwCheck) {
+        this.loginPwCheck = loginPwCheck;
+    }
+
     public void setLoginPw(String loginPw) {
         this.loginPw = loginPw;
     }
