@@ -1,4 +1,4 @@
-package koreaIT;
+package koreaIT.dto;
 
 public class Member {
     private int id;
@@ -52,14 +52,6 @@ public class Member {
 
     public String getLoginPw() {
         return loginPw;
-    }
-
-    public String getLoginPwCheck() {
-        return loginPwCheck;
-    }
-
-    public void setLoginPwCheck(String loginPwCheck) {
-        this.loginPwCheck = loginPwCheck;
     }
 
     public void setLoginPw(String loginPw) {
