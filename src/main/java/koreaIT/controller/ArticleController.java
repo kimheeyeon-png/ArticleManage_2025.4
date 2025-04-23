@@ -22,9 +22,19 @@ public class ArticleController extends Controller {
     public void doAction(String methodName, String cmd) {
         switch (methodName) {
             case "modify":
+                // 로그인 상태 체크
+                if(!isLogined()){
+                    System.out.println("로그인 하고 이용하세요.");
+                    break;
+                }
                 doModify(cmd);
                 break;
             case "delete":
+                // 로그인 상태 체크
+                if(!isLogined()){
+                    System.out.println("로그인 하고 이용하세요.");
+                    break;
+                }
                 doDelete(cmd);
                 break;
             case "detail":
@@ -34,14 +44,18 @@ public class ArticleController extends Controller {
                 showList();
                 break;
             case "write":
+                // 로그인 상태 체크
+                if(!isLogined()){
+                    System.out.println("로그인 하고 이용하세요.");
+                    break;
+                }
                 doWrite();
                 break;
             default:
                 System.out.println("명령어를 확인해주세요.3");
         }
     }
-
-    public void doModify(String cmd) {
+    private void doModify(String cmd) {
 
         // parsing start
         String[] cmdBits = cmd.split(" ");
@@ -83,8 +97,7 @@ public class ArticleController extends Controller {
         }
     }
 
-    public void doDelete(String cmd) {
-
+    private void doDelete(String cmd) {
         // parsing start
         String[] cmdBits = cmd.split(" ");
 
@@ -111,7 +124,7 @@ public class ArticleController extends Controller {
         }
     }
 
-    public void showDetail(String cmd) {
+    private void showDetail(String cmd) {
 
         // parsing start
         String[] cmdBits = cmd.split(" ");
@@ -142,14 +155,15 @@ public class ArticleController extends Controller {
         }
     }
 
-    public void showList() {
+    private void showList() {
         System.out.println("번호  /  제목  / 내용");
         for (int i = articleList.size() - 1; i >= 0; i--) {
             System.out.printf("%d   / %s    / %s\n", articleList.get(i).getId(), articleList.get(i).getTitle(), articleList.get(i).getBody());
         }
     }
 
-    public void doWrite() {
+    private void doWrite() {
+
         System.out.print("제목 : ");
         String title = sc.nextLine();
         System.out.print("내용 : ");
@@ -166,7 +180,7 @@ public class ArticleController extends Controller {
         System.out.printf("%d번 글이 생성되었습니다.\n", id);
     }
 
-    public Article getArticleById(int id) {
+    private Article getArticleById(int id) {
         for (Article article : articleList) {
             if (article.getId() == id) {
                 return article;

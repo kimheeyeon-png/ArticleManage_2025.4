@@ -47,7 +47,6 @@ public class App {
                 System.out.println("명령어를 확인해주세요.2");
                 continue;
             }
-
             controller.doAction(methodName, cmd);
         }
     }

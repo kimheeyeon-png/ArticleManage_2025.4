@@ -3,7 +3,6 @@ package koreaIT.controller;
 import koreaIT.dto.Member;
 import koreaIT.util.Util;
 
-import javax.sound.midi.MetaMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +12,6 @@ public class MemberController extends Controller {
     private Scanner sc;
     private List<Member> memberList;
     private int lastMemberId = 3;
-    private Member loginedMember = null;
 
     public MemberController(Scanner sc) {
         this.sc = sc;
@@ -23,8 +21,21 @@ public class MemberController extends Controller {
     public void doAction(String methodName, String cmd){
 
         switch (methodName){
+            case "logout":
+                // 로그인 상태 체크
+                if(!isLogined()){
+                    System.out.println("이미 로그아웃 상태입니다.");
+                    break;
+                }
+                doLogout();
+                break;
             case "login":
-                dologin();
+                // 로그인 상태 체크
+                if(isLogined()){
+                    System.out.println("이미 로그인 상태입니다.");
+                    break;
+                }
+                doLogin();
                 break;
             case "join":
                 doJoin();
@@ -35,14 +46,15 @@ public class MemberController extends Controller {
             default:
                 System.out.println("명령어를 확인해주세요.4");
         }
+
     }
 
-    public void dologin() {
+    private void doLogout() {
+        loginedMember = null;
+        System.out.println("로그아웃 성공");
+    }
 
-        if (loginedMember != null) {
-            System.out.println("이미 로그인 상태입니다.");
-            return;
-        }
+    private void doLogin(){
         System.out.println("== 로그인 ==");
         System.out.print("로그인 아이디 : ");
         String loginId = sc.nextLine();
@@ -56,21 +68,22 @@ public class MemberController extends Controller {
             return;
         }
         if (member.getLoginPw().equals(loginPw)){
-            System.out.printf("로그인 성공! %d님 환영합니다.", member.getName());
+            System.out.printf("로그인 성공! %s님 환영합니다.\n", member.getName());
             loginedMember = member;
-        } else {
+            return;
+        }else {
             System.out.println("비밀번호가 틀렸습니다.");
+            return;
         }
     }
 
-    public void showMember() {
+    private void showMember(){
         for (Member member : memberList){
             System.out.println(member.toString());
         }
     }
 
-    public void doJoin() {
-
+    private void doJoin() {
         String loginId;
         while (true) {
             System.out.print("로그인 아이디 : ");
@@ -130,9 +143,9 @@ public class MemberController extends Controller {
     }
 
     public void makeTestData() {
-        System.out.println("테스트를 위한 게시글 데이터를 생성합니다.");
-        memberList.add(new Member(1, "2025-3-1", Util.getNowDate(), "admin", "admin", "관리자"));
-        memberList.add(new Member(1, "2025-3-2", Util.getNowDate(), "test1", "test1", "회원1"));
-        memberList.add(new Member(1, "2025-3-3", Util.getNowDate(), "test2", "test2", "회원2"));
-    }
+        System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
+        memberList.add( new Member(1, "2025-3-1", Util.getNowDate(), "admin", "admin", "관리자"));
+        memberList.add( new Member(2, "2025-3-2", Util.getNowDate(), "test1", "test1", "회원1"));
+        memberList.add( new Member(3, "2025-3-3", Util.getNowDate(), "test2", "test2", "회원2"));
+                }
 }
