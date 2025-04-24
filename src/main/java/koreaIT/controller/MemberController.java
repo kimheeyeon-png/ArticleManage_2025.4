@@ -147,5 +147,5 @@ public class MemberController extends Controller {
         memberList.add( new Member(1, "2025-3-1", Util.getNowDate(), "admin", "admin", "관리자"));
         memberList.add( new Member(2, "2025-3-2", Util.getNowDate(), "test1", "test1", "회원1"));
         memberList.add( new Member(3, "2025-3-3", Util.getNowDate(), "test2", "test2", "회원2"));
-                }
+    }
 }
