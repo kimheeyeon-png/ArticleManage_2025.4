@@ -1,9 +1,9 @@
 package koreaIT.controller;
 
+import koreaIT.Container;
 import koreaIT.dto.Article;
 import koreaIT.util.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +15,7 @@ public class ArticleController extends Controller {
 
     public ArticleController(Scanner sc) {
         this.sc = sc;
-        this.articleList = new ArrayList<>();
+        this.articleList = Container.articleDao.articleList;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ArticleController extends Controller {
         if (foundArticle != null) {
 
             // 로그인 중인 아이디와 게시글의 권한 체크
-            if (loginedMember.getId() != foundArticle.getMemberId()) {
+            if (loginedMember.getId() != foundArticle.getMemberId()){
                 System.out.println("해당 게시글에 대한 권한이 없습니다.");
                 return;
             }
@@ -88,6 +88,8 @@ public class ArticleController extends Controller {
         } else {
             System.out.printf("%d번 게시글은 없습니다\n", modifyId);
         }
+
+
     }
 
     private void doDelete(String cmd) {
@@ -113,7 +115,7 @@ public class ArticleController extends Controller {
 
         if (foundArticle != null) {
             // 로그인 중인 아이디와 게시글의 권한 체크
-            if (loginedMember.getId() != foundArticle.getMemberId()) {
+            if (loginedMember.getId() != foundArticle.getMemberId()){
                 System.out.println("해당 게시글에 대한 권한이 없습니다.");
                 return;
             }
@@ -160,12 +162,14 @@ public class ArticleController extends Controller {
         System.out.println("번호  /  작성일  /   작성자   /    제목");
         for (int i = articleList.size() - 1; i >= 0; i--) {
 
-            if (Util.getNowDate().split(" ")[0].equals(articleList.get(i).getRegDate().split(" ")[0])) {
+            if (Util.getNowDate().split(" ")[0].equals(articleList.get(i).getRegDate().split(" ")[0])){
                 System.out.printf("%d   / %s    /   %d  /  %s \n", articleList.get(i).getId(), articleList.get(i).getRegDate().split(" ")[1], articleList.get(i).getMemberId(), articleList.get(i).getTitle());
 
-            } else {
+            }else {
                 System.out.printf("%d   / %s    /   %d  /  %s \n", articleList.get(i).getId(), articleList.get(i).getRegDate().split(" ")[0], articleList.get(i).getMemberId(), articleList.get(i).getTitle());
+
             }
+
         }
     }
 
