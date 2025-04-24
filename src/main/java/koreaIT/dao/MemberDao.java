@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MemberDao {
-
-    public List<Member> memberList;
+    private List<Member> memberList;
 
     public MemberDao() {
         this.memberList = new ArrayList<>();
+    }
+
+    public List<Member> getMemberList() {
+        return memberList;
     }
 }
