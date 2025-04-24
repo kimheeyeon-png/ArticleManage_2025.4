@@ -47,6 +47,33 @@ public class App {
                 System.out.println("명령어를 확인해주세요.2");
                 continue;
             }
+
+            String loginCheck = controllerName + "/" +  methodName;
+
+            // 로그인이 필요한 메서드
+            switch (loginCheck){
+                case "article/write":
+                case "article/modify":
+                case "article/delete":
+                case "member/logout":
+                    if(!Controller.isLogined()){
+                        System.out.println("로그인하고 이용하세요");
+                        continue;
+                    }
+                    break;
+            }
+
+            // 로그아웃이 필요한 메서드
+            switch (loginCheck){
+                case "member/login":
+                case "member/join":
+                    if(Controller.isLogined()){
+                        System.out.println("로그아웃하고 이용하세요");
+                        continue;
+                    }
+                    break;
+            }
+
             controller.doAction(methodName, cmd);
         }
     }
