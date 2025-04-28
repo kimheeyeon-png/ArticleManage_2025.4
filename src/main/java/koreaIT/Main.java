@@ -5,5 +5,4 @@ public class Main {
 
         new App().run();
     }
-
 }
